@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script src="http://threejsplaygnd.brangerbriz.net/js/three.min.js"></script>
+		<script src="http://threejsplaygnd.brangerbriz.net/js/Detector.js"></script>
+		<script>
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+			
+			var camera, scene, renderer;
+			var geometry, material, mesh;
+
+			function setup() {
+
+				var W = window.innerWidth, H = window.innerHeight;
+				renderer = new THREE.WebGLRenderer();
+				renderer.setSize( W, H );
+				document.body.appendChild( renderer.domElement );
+
+				camera = new THREE.PerspectiveCamera( 50, W/H, 1, 10000 );
+				camera.position.z = 500;
+
+				scene = new THREE.Scene();
+				
+				
+				// paste your code from the geometryGUI here
+				
+				var points = [
+    new THREE.Vector3( 18.98, -44.06, -43.11 ),
+    new THREE.Vector3( -4.71, 72.86, 79.25 ),
+    new THREE.Vector3( -55.54, 41.94, -46.42 ),
+    new THREE.Vector3( -37.17, 21.12, 70.87 ),
+    new THREE.Vector3( 99.22, -77.35, 48.66 ),
+    new THREE.Vector3( 86.86, 23.9, -37.2 ),
+    new THREE.Vector3( 41.22, -50.83, 28.69 ),
+    new THREE.Vector3( 32.9, 4.57, -11.56 ),
+    new THREE.Vector3( 69.18, 54.99, 30.41 ),
+    new THREE.Vector3( -48.61, -48.15, -49.2 ),
+    new THREE.Vector3( -12.71, -20.55, 29.48 ),
+    new THREE.Vector3( 44.89, 36.65, -3.67 ),
+    new THREE.Vector3( -74.89, 93.18, 44 ),
+    new THREE.Vector3( -52.22, 10.12, 16.12 ),
+    new THREE.Vector3( -16.25, 72.19, 46.49 ),
+    new THREE.Vector3( 87.12, -47.98, 53.06 ),
+    new THREE.Vector3( 36.89, 90.38, -13.01 ),
+    new THREE.Vector3( 86.72, 70.99, 41.64 ),
+    new THREE.Vector3( -65.17, -9.32, 1.08 ),
+    new THREE.Vector3( -55.15, 86.06, 14.61 ),
+    new THREE.Vector3( -50.79, -0.04, -74.64 ),
+    new THREE.Vector3( -63.92, -43.36, -74.67 ),
+    new THREE.Vector3( -69.56, 68.54, 1.69 ),
+    new THREE.Vector3( -35.86, 29.55, 89.5 ),
+    new THREE.Vector3( 82.66, -55.87, -9.98 ),
+    new THREE.Vector3( -13.59, 90.86, 65.23 ),
+];
+
+map = THREE.ImageUtils.loadTexture('../texturez/crate.jpg');
+geometry = new THREE.ConvexGeometry( points );
+material = new THREE.MeshLambertMaterial({shading: THREE.SmoothShading, color: 0x000000, map: map, side: THREE.DoubleSide, transparent: true, opacity: 0.72});
+mesh = new THREE.Mesh(geometry, material);
+map.wrapS = map.wrapT = THREE.RepeatWrapping;
+map.repeat.set( 1, 1 );
+mesh.scale.x = mesh.scale.y = mesh.scale.z = 1.04;
+mesh.position.y = 86.02;
+mesh.rotation.x = 5.91;
+mesh.rotation.y = 6.97;
+mesh.rotation.z = 7.59;
+scene.add(mesh);
+			}
+
+			function draw() {
+
+				requestAnimationFrame( draw );
+				
+				// experiment with code from the snippets menu here
+
+				camera.position.x = Math.sin( Date.now() * 0.002 ) * 50;
+				
+				/* -------------------------------------- 
+				you can also swing a mesh this way
+				-------------------------------------- */
+				
+				mesh.position.y = Math.sin( Date.now() * 0.002 ) * 300;
+
+
+				camera.lookAt(mesh.position);
+				
+				/* --------------------------------------
+				to see this in action add motion to your
+				object, add the code below to your draw()
+				-------------------------------------- */
+				
+				mesh.position.y = Math.sin( Date.now() * 0.002 ) * 450;
+				
+				/* --------------------------------------
+				to get a sense of the space you can add a
+				slightly tilted plane in your setup() 
+				-------------------------------------- */
+				
+				wgeometry = new THREE.PlaneGeometry( 1000, 1000, 100, 100 );
+				wmaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 1 } );
+				wireplane = new THREE.Mesh( wgeometry, wmaterial );
+				wireplane.rotation.x = - Math.PI / 3;
+				scene.add( wireplane );
+
+
+
+				mesh.rotation.x = Date.now() * 0.0005;	
+				mesh.rotation.y = Date.now() * 0.0002;	
+				mesh.rotation.z = Date.now() * 0.001;
+					
+					
+					
+					
+					
+
+				renderer.render( scene, camera );
+
+			}
+
+			setup();
+			draw();
+
+		</script>
+		
+</body>
+</html>
